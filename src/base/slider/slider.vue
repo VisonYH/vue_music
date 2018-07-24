@@ -1,7 +1,7 @@
 <template>
   <div class="slider">
     <div class="wrapper" ref="wrapper">
-      <ul class="content">
+      <ul class="content" ref="content">
         <li class="item" v-for="item in sliderList" :key="item.id">
           <img :src="item.picUrl" alt="轮播图">
         </li>
@@ -21,16 +21,27 @@ export default {
   },
   created () {
     getSliderList().then(res => {
-      this.sliderList = res.data.slider
-      this.scroll = new BScroll(this.$refs.wrapper, {
-        scrollX: true,
-        scrollY: false,
-        momentum: false,
-        snap: true,
-        snapLoop: this.loop,
-        snapThreshold: 0.3,
-        snapSpeed: 400
-      })
+      if (res.code === 0 && res.data.slider.length !== 0) {
+        this.sliderList = res.data.slider
+        this.$nextTick(() => {
+          this.$refs.content.style.width = this.sliderList.length * this.$refs.content.clientWidth + 'px'
+          for (let item of this.$refs.content.children) {
+            item.style.width = this.$refs.wrapper.clientWidth + 'px'
+            item.className += item.className + ' slideItem'
+          }
+        })
+        setTimeout(() => {
+          this.scroll = new BScroll(this.$refs.wrapper, {
+            scrollX: true,
+            scrollY: false,
+            momentum: false,
+            snap: true,
+            snapLoop: true,
+            snapThreshold: 0.3,
+            snapSpeed: 400
+          })
+        }, 20)
+      }
     })
   }
 }
@@ -45,7 +56,7 @@ export default {
     .content
       overflow hidden
       white-space: nowrap
-      .item
+      .slideItem
         float left
         img
           width 100%
