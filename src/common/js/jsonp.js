@@ -15,9 +15,11 @@ const jsonp = (url, params, opt) => {
 
 function formatParams (url, params) {
   url = url.indexOf('?') !== -1 ? url : url + '?'
+  let urlToAppend = ''
   for (let item in params) {
-    url += '&' + item + '=' + params[item]
+    let value = (params[item] instanceof Object) ? JSON.stringify(params[item]) : params[item]
+    urlToAppend += '&' + item + '=' + value
   }
-  return url
+  return url + encodeURI(urlToAppend)
 }
 export default jsonp

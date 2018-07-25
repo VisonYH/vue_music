@@ -9,19 +9,9 @@ import BScroll from 'better-scroll'
 export default {
   mounted () {
     setTimeout(() => {
-      this.scroll = new BScroll(this.$refs.wrapper, {
-        scrollX: true,
-        scrollY: false,
-        momentum: false,
-        snap: true,
-        snapLoop: this.loop,
-        snapThreshold: 0.3,
-        snapSpeed: 400
-      })
-    }, 20)
-    this.$nextTick(() => {
-
-    })
+      // console.log(this.$refs.wrapper.clientHeight)
+      this.scroll = new BScroll(this.$refs.wrapper)
+    }, 2000)
   }
 }
 </script>
@@ -29,12 +19,6 @@ export default {
 <style lang="stylus" scoped>
 .wrapper
   width 100%
+  height 100%
   overflow hidden
-  .content
-    overflow hidden
-    white-space: nowrap
-    .item
-      float left
-      img
-        width 100%
 </style>
