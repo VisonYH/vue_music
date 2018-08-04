@@ -7,11 +7,33 @@
 <script>
 import BScroll from 'better-scroll'
 export default {
+  props: {
+    probeType: {
+      type: Number,
+      default: 0
+    },
+    scrollTo: {
+      type: Number,
+      default: 0
+    }
+  },
   mounted () {
     setTimeout(() => {
       // console.log(this.$refs.wrapper.clientHeight)
-      this.scroll = new BScroll(this.$refs.wrapper)
-    }, 2000)
+      this.scroll = new BScroll(this.$refs.wrapper, {
+        probeType: this.probeType
+      })
+      this.scroll.on('scroll', (pos) => {
+        // console.log(pos)
+        this.$emit('scroll', -pos.y)
+      })
+    }, 20)
+  },
+  watch: {
+    scrollTo (height) {
+      console.log('-----------------', height)
+      this.scroll.scrollTo(0, -height)
+    }
   }
 }
 </script>

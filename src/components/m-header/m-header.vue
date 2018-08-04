@@ -1,7 +1,7 @@
 <template>
   <div class="header">
     <div class="logo"></div>
-    <h1>Chicken Music</h1>
+    <h1>VisonYH Music</h1>
   </div>
 </template>
 
