@@ -65,8 +65,8 @@
       <div class="scroll-wrapper" ref="scrollWrapper">
         <div class="singer-category" v-for="category in singerList" :key="category.title">
           <h1 class="title">{{category.title}}</h1>
-          <div class="singer-item" v-for="singer in category.items" :key="singer.id">
-            <img :src="singer.avatar" width="50" height="50" alt="歌手头像">
+          <div class="singer-item" v-for="singer in category.items" :key="singer.id" @click="selectSinger(singer.id)">
+            <img v-lazy="singer.avatar" width="50" height="50" alt="歌手头像">
             <span class="singer-name">{{singer.name}}</span>
           </div>
         </div>
@@ -87,8 +87,8 @@
 import Scroll from 'base/scroll/scroll'
 import { getSingerList } from 'api/singer'
 import { ERR_OK } from 'api/config'
+import { mapMutations } from 'vuex'
 const HOT_SINGER_LENGTH = 10
-let renderTimes = 0
 export default {
   components: {
     Scroll
@@ -104,6 +104,9 @@ export default {
     }
   },
   methods: {
+    ...mapMutations([
+      'selectSinger'
+    ]),
     scrollTo (index) {
       this.scrollToHeight = this.cateHeightArr[index]
       this.currCate = this.sortedFirstIndex[index]
@@ -121,9 +124,6 @@ export default {
         this.currCate = this.sortedFirstIndex[i - 1]
       }
     }
-  },
-  updated () {
-    console.log('=================', ++renderTimes)
   },
   created () {
     getSingerList().then(res => {
@@ -164,7 +164,6 @@ export default {
         this.$nextTick(() => {
           let childrenArr = this.$refs.scrollWrapper.children
           for (let i = 0; i < childrenArr.length; i++) {
-            // console.log(this.cateHeightArr[i] + childrenArr[i].clientHeight)
             this.cateHeightArr.push(this.cateHeightArr[i] + childrenArr[i].clientHeight)
           }
         })

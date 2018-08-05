@@ -5,6 +5,7 @@ import Recommend from 'components/recommend/recommend'
 import Search from 'components/search/search'
 import Rank from 'components/rank/rank'
 import AlbumDetail from 'components/AlbumDetail/AlbumDetail'
+import TopList from 'components/top-list/top-list'
 Vue.use(Router)
 
 export default new Router({
@@ -28,7 +29,13 @@ export default new Router({
     },
     {
       path: '/rank',
-      component: Rank
+      component: Rank,
+      children: [
+        {
+          path: ':id',
+          component: TopList
+        }
+      ]
     },
     {
       path: '/search',

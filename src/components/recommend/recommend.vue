@@ -44,7 +44,7 @@
           <h1 class="title">热门专辑推荐</h1>
           <div class="albumItem" v-for="item in albumList" :key="item.album_mid" @click="_selectAlbum(item.album_mid)">
             <div class="img">
-              <img :src="item.imageUrl" alt="" height="60" width="60">
+              <img v-lazy="item.imageUrl" alt="" height="60" width="60">
             </div>
             <div class="desc">
               <h2 class="albumName">{{item.album_name}}</h2>

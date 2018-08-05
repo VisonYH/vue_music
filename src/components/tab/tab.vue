@@ -19,6 +19,7 @@ export default {
   display flex
   height 44px
   text-align center
+  font-size $font-size-medium
   div
     flex 1
     span
@@ -27,4 +28,5 @@ export default {
     &.router-link-active
       span
         border-bottom 2px solid $color-theme
+        color $color-theme
 </style>

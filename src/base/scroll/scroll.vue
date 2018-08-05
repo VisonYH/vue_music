@@ -15,23 +15,25 @@ export default {
     scrollTo: {
       type: Number,
       default: 0
+    },
+    click: {
+      type: Boolean,
+      default: false
     }
   },
   mounted () {
     setTimeout(() => {
-      // console.log(this.$refs.wrapper.clientHeight)
       this.scroll = new BScroll(this.$refs.wrapper, {
-        probeType: this.probeType
+        probeType: this.probeType,
+        click: this.click
       })
       this.scroll.on('scroll', (pos) => {
-        // console.log(pos)
         this.$emit('scroll', -pos.y)
       })
     }, 20)
   },
   watch: {
     scrollTo (height) {
-      console.log('-----------------', height)
       this.scroll.scrollTo(0, -height)
     }
   }

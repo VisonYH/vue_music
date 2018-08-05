@@ -7,7 +7,8 @@ import mutations from './mutations'
 Vue.use(Vuex)
 
 const state = {
-  selectedAlbum: '' // 当前位置纬度
+  selectedAlbum: '', // 当前选择的专辑
+  selectedSinger: '' // 当前选择的专辑
 }
 
 export default new Vuex.Store({
