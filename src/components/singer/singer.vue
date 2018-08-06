@@ -61,7 +61,7 @@
 
 <template>
   <div class="singer">
-    <scroll @scroll="scroll" :probe-type="probeType" :scrollTo="scrollToHeight">
+    <scroll @scroll="scroll" :probe-type="probeType" :scrollTo="scrollToHeight" :click="true">
       <div class="scroll-wrapper" ref="scrollWrapper">
         <div class="singer-category" v-for="category in singerList" :key="category.title">
           <h1 class="title">{{category.title}}</h1>
