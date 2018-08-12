@@ -53,7 +53,8 @@ export default {
           speed: 400
         },
         bounce: false,
-        stopPropagation: true
+        stopPropagation: true,
+        click: true
       })
       this.slider.on('scrollEnd', () => {
         this._play()

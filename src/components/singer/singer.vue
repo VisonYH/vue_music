@@ -65,7 +65,7 @@
       <div class="scroll-wrapper" ref="scrollWrapper">
         <div class="singer-category" v-for="category in singerList" :key="category.title">
           <h1 class="title">{{category.title}}</h1>
-          <div class="singer-item" v-for="singer in category.items" :key="singer.id" @click="selectSinger(singer.id)">
+          <div class="singer-item" v-for="singer in category.items" :key="singer.id" @click="_selectSinger(singer.id)">
             <img v-lazy="singer.avatar" width="50" height="50" alt="歌手头像">
             <span class="singer-name">{{singer.name}}</span>
           </div>
@@ -80,6 +80,7 @@
         </li>
       </ul>
     </scroll>
+    <router-view></router-view>
   </div>
 </template>
 
@@ -104,9 +105,13 @@ export default {
     }
   },
   methods: {
-    ...mapMutations([
-      'selectSinger'
-    ]),
+    ...mapMutations({
+      'selectSinger': 'SELECTE_SINGER'
+    }),
+    _selectSinger (id) {
+      this.selectSinger(id)
+      this.$router.push(`/singer/${id}`)
+    },
     scrollTo (index) {
       this.scrollToHeight = this.cateHeightArr[index]
       this.currCate = this.sortedFirstIndex[index]

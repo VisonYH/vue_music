@@ -1,8 +1,28 @@
+import Types from './mutation-types'
+
 export default {
-  selectAlbum: (state, payload) => {
+  [Types.SELECTE_ALBUM]: (state, payload) => {
     state.selectedAlbum = payload
   },
-  selectSinger: (state, payload) => {
+  [Types.SELECTE_SINGER]: (state, payload) => {
     state.selectedSinger = payload
+  },
+  [Types.SET_PLAYINGSTATE]: (state, payload) => {
+    state.playing = payload
+  },
+  [Types.SET_FULLSCREEN]: (state, payload) => {
+    state.fullScreen = payload
+  },
+  [Types.SET_PLAYINGMODE]: (state, payload) => {
+    state.mode = payload
+  },
+  [Types.SET_PLAYLIST]: (state, payload) => {
+    state.playlist = payload
+  },
+  [Types.SET_CURRENTINDEX]: (state, payload) => {
+    state.currentIndex = payload
+  },
+  [Types.SET_SEQUENCELIST]: (state, payload) => {
+    state.sequenceList = payload
   }
 }
