@@ -13,8 +13,6 @@
     .item
       display flex
       padding 20px 20px 0
-      // width 100%
-      // box-sizing border-box
       img
         flex 0 0 100px
       .desc
@@ -49,6 +47,7 @@
         </div>
       </div>
     </scroll>
+    <router-view></router-view>
   </div>
 </template>
 
@@ -75,7 +74,6 @@ export default {
   methods: {
     selectRank (id) {
       this.$router.push(`/rank/${id}`)
-      console.log(this.$router)
     }
   }
 }

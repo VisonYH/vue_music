@@ -19,6 +19,10 @@ export default {
     click: {
       type: Boolean,
       default: false
+    },
+    listenScroll: {
+      type: Boolean,
+      default: false
     }
   },
   mounted () {
@@ -27,10 +31,24 @@ export default {
         probeType: this.probeType,
         click: this.click
       })
-      this.scroll.on('scroll', (pos) => {
-        this.$emit('scroll', -pos.y)
-      })
+      if (this.listenScroll) {
+        this.scroll.on('scroll', (pos) => {
+          this.$emit('scroll', -pos.y)
+        })
+      }
     }, 20)
+  },
+  methods: {
+    disable () {
+      this.scroll.disable()
+    },
+    refresh () {
+      this.scroll && this.scroll.refresh()
+      console.log('refreshed')
+    },
+    scrollToPos (height) {
+      this.scroll.scrollTo(0, -height, 700)
+    }
   },
   watch: {
     scrollTo (height) {
@@ -44,5 +62,4 @@ export default {
 .wrapper
   width 100%
   height 100%
-  overflow hidden
 </style>

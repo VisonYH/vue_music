@@ -5,43 +5,47 @@
   top: 88px
   bottom 0
   width 100%
-  .albumRecommend
-    .title
-      height 65px
-      line-height 65px
-      text-align center
-      color $color-theme
-      font-size $font-size-medium
-    .albumItem
-      display flex
-      padding 10px 20px
-      .img
-        flex 0 0 80px
-      .desc
-        flex 1
+  overflow hidden
+  .scroll
+    width 100%
+    height 100%
+    .albumRecommend
+      .title
+        height 65px
+        line-height 65px
+        text-align center
+        color $color-theme
+        font-size $font-size-medium
+      .albumItem
         display flex
-        flex-direction column
-        justify-content center
-        color $color-text-ll
-        .albumName
-          color $color-text
-          font-size $font-size-medium
-          margin-bottom 10px
-        .author
+        padding 10px 20px
+        .img
+          flex 0 0 80px
+        .desc
+          flex 1
+          display flex
+          flex-direction column
+          justify-content center
           color $color-text-ll
-          font-size $font-size-small
-          margin-bottom 10px
-        .publicTime
-          font-size $font-size-small
+          .albumName
+            color $color-text
+            font-size $font-size-medium
+            margin-bottom 10px
+          .author
+            color $color-text-ll
+            font-size $font-size-small
+            margin-bottom 10px
+          .publicTime
+            font-size $font-size-small
 </style>
 
 <template>
   <div class="recommend">
-    <scroll>
+    <scroll :click="true" class="scroll">
       <div class="scroll-wrapper">
         <slider :sliderList="sliderList"></slider>
         <div class="albumRecommend">
-          <h1 class="title">热门专辑推荐</h1>
+          <h1 class="title">新碟首发</h1>
           <div class="albumItem" v-for="item in albumList" :key="item.album_mid" @click="_selectAlbum(item.album_mid)">
             <div class="img">
               <img v-lazy="item.imageUrl" alt="" height="60" width="60">

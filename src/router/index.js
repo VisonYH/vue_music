@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Singer from 'components/singer/singer'
+import SingerDetail from 'components/singer-detail/singer-detail'
 import Recommend from 'components/recommend/recommend'
 import Search from 'components/search/search'
 import Rank from 'components/rank/rank'
@@ -17,15 +18,19 @@ export default new Router({
     },
     {
       path: '/recommend',
-      component: Recommend
-    },
-    {
-      path: '/recommend/album/:id',
-      component: AlbumDetail
+      component: Recommend,
+      children: [{
+        path: ':id',
+        component: AlbumDetail
+      }]
     },
     {
       path: '/singer',
-      component: Singer
+      component: Singer,
+      children: [{
+        path: ':id',
+        component: SingerDetail
+      }]
     },
     {
       path: '/rank',
@@ -33,7 +38,8 @@ export default new Router({
       children: [
         {
           path: ':id',
-          component: TopList
+          component: TopList,
+          props: true
         }
       ]
     },
