@@ -7,6 +7,7 @@ import Search from 'components/search/search'
 import Rank from 'components/rank/rank'
 import AlbumDetail from 'components/AlbumDetail/AlbumDetail'
 import TopList from 'components/top-list/top-list'
+import User from 'components/user/user'
 Vue.use(Router)
 
 export default new Router({
@@ -46,6 +47,10 @@ export default new Router({
     {
       path: '/search',
       component: Search
+    },
+    {
+      path: '/user',
+      component: User
     }
   ]
 })
