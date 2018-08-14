@@ -44,7 +44,7 @@ export default {
     },
     refresh () {
       this.scroll && this.scroll.refresh()
-      console.log('refreshed')
+      // console.log('refreshed')
     },
     scrollToPos (height) {
       this.scroll.scrollTo(0, -height, 700)

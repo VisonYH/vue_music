@@ -20,14 +20,7 @@
 import MusicList from 'components/music-list/music-list'
 import { getTopList } from 'api/rank'
 import { ERR_OK } from 'api/config'
-class Song {
-  constructor (id, name, singer, desc) {
-    this.id = id
-    this.name = name
-    this.singer = singer
-    this.desc = desc
-  }
-}
+import Song from 'common/js/song'
 export default {
   data () {
     return {
@@ -50,28 +43,24 @@ export default {
       console.log(res)
       if (res.code === ERR_OK) {
         res.songlist.forEach(item => {
-          let name = item.data.songname
-          let id = item.data.songmid
+          item = item.data
+          let name = item.songname
+          let mid = item.songmid
+          let id = item.songid
+          let duration = item.interval
+          let albumId = item.albummid
           let singerName = []
-          item.data.singer.forEach(singer => {
+          item.singer.forEach(singer => {
             singerName.push(singer.name)
           })
           let singer = singerName.join('/')
-          let desc = item.data.albumname
-          this.songList.push(new Song(id, name, singer, desc))
+          let desc = item.albumname
+          this.songList.push(new Song(mid, name, singer, desc, albumId, id, duration))
         })
         this.title = res.topinfo.ListName
         this.picture = res.topinfo.pic_album
       }
     }).catch(e => console.log(e))
-  },
-  beforeRouteUpdate (to, from, next) {
-    // console.log('update========', to.params.id)
-    next()
-  },
-  beforeRouteEnter (to, from, next) {
-    // console.log('leave========', to.params.id)
-    next()
   }
 }
 </script>

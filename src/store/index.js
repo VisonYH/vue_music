@@ -15,7 +15,9 @@ const state = {
   playlist: [], // 播放列表
   sequenceList: [], // 顺序列表
   mode: playMode.sequence, // 播放模式
-  currentIndex: -1
+  currentIndex: -1,
+  historyList: {}, // 历史听过歌曲
+  favoriteList: {} // 收藏歌曲
 }
 const debug = process.env.NODE_ENV === 'development'
 

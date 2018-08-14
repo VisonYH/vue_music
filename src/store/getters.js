@@ -15,3 +15,11 @@ export const fullScreen = state => state.fullScreen
 export const currentSong = state => {
   return state.playlist[state.currentIndex] || {}
 }
+
+export const historyList = state => {
+  return state.historyList
+}
+
+export const favoriteList = state => {
+  return state.favoriteList
+}

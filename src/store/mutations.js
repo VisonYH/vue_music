@@ -24,5 +24,21 @@ export default {
   },
   [Types.SET_SEQUENCELIST]: (state, payload) => {
     state.sequenceList = payload
+  },
+  [Types.SET_HISTORYLIST]: (state, payload) => {
+    state.historyList[payload.mid] = payload
+  },
+  [Types.GET_HISTORYLIST]: (state, payload) => {
+    state.historyList = payload
+  },
+  [Types.SET_FAVORITELIST]: (state, payload) => {
+    if (state.favoriteList[payload.mid]) {
+      delete state.favoriteList[payload.mid]
+    } else {
+      state.favoriteList[payload.mid] = payload
+    }
+  },
+  [Types.GET_FAVORITELIST]: (state, payload) => {
+    state.favoriteList = payload
   }
 }
