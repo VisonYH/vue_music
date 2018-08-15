@@ -41,7 +41,7 @@
 
 <template>
   <div class="recommend">
-    <scroll :click="true" class="scroll">
+    <scroll :click="true" class="scroll" ref="scroll">
       <div class="scroll-wrapper">
         <slider :sliderList="sliderList"></slider>
         <div class="albumRecommend">
@@ -65,8 +65,10 @@
 <script type="text/ecmascript-6">
 import Slider from 'base/slider/slider'
 import Scroll from 'base/scroll/scroll'
-import { getSliderList, getAlbumList } from 'api/recommend'
-import { mapMutations } from 'vuex'
+import { getSliderList, getAlbumList, getAlbumSong } from 'api/recommend'
+import { mapMutations, mapActions } from 'vuex'
+import { ERR_OK } from 'api/config'
+import Song from 'common/js/song'
 export default {
   components: {
     Slider,
@@ -75,30 +77,55 @@ export default {
   data () {
     return {
       sliderList: [],
-      albumList: []
+      albumList: [],
+      albumSong: []
     }
   },
   created () {
     this._getSliderList()
     this._getAlbumList()
   },
+  activated () {
+    this.$refs.scroll.refresh()
+  },
   methods: {
     ...mapMutations([
-      'selectAlbum'
     ]),
-    _selectAlbum (id) {
-      this.selectAlbum(id)
+    ...mapActions([
+      'selectSong'
+    ]),
+    _selectAlbum (mid) {
+      let _this = this
+      getAlbumSong(mid).then(res => {
+        if (res.code === ERR_OK) {
+          _this.albumSong = []
+          res.data.list.forEach(item => {
+            let mid = item.songmid
+            let id = item.songid
+            let duration = item.interval
+            let name = item.songname
+            let singer = []
+            let desc = item.albumname
+            let albumId = item.albummid
+            item.singer.forEach(item => {
+              singer.push(item.name)
+            })
+            singer = singer.join('/')
+            _this.albumSong.push(new Song(mid, name, singer, desc, albumId, id, duration))
+          })
+          this.selectSong({list: _this.albumSong, index: 0})
+        }
+      })
     },
     _getSliderList () {
       getSliderList().then(res => {
-        if (res.code === 0 && res.data.slider.length !== 0) {
+        if (res.code === ERR_OK && res.data.slider.length !== 0) {
           this.sliderList = res.data.slider
         }
       })
     },
     _getAlbumList () {
       getAlbumList().then(res => {
-        // console.log(res.albumlib.data.list)
         res.albumlib.data.list.forEach(item => {
           let tempObj = {}
           tempObj.album_mid = item.album_mid
@@ -112,8 +139,6 @@ export default {
           tempObj.singers = singerName.join('/')
           this.albumList.push(tempObj)
         })
-        // console.log(this.albumList)
-        // https://y.gtimg.cn/music/photo_new/T002R300x300M000002O4q192lEA83.jpg?max_age=2592000
       }).catch(e => console.log(e))
     }
   }

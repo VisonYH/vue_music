@@ -30,6 +30,18 @@ module.exports = {
         pathRewrite: {
           '^/lyric': '/lyric'
         }
+      },
+      '/searchR': {
+        target: 'https://c.y.qq.com',
+        changeOrigin: true,//是否跨域
+        secure: false,
+        headers: {
+          referer: 'https://c.y.qq.com/',
+          host: 'c.y.qq.com'
+        },
+        pathRewrite: {
+          '^/searchR': ''
+        }
       }
     },
 // http://dl.stream.qqmusic.qq.com/C400003OUlho2HcRHC.m4a?vkey=A134AAB572B86587B577E78666E159C9F3A25D01D7C4583866B1B020D5447B00F412DB12CE68FBBC571BB14EADF4056D0EFCC5B3B661D074&guid=9545416954&uin=0&fromtag=66
