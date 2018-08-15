@@ -86,6 +86,7 @@ export default {
   activated () {
     this.hisList = Object.values(this.historyList)
     this.favList = Object.values(this.favoriteList)
+    this.songList = this.favList
     if (this.playlist.length) {
       this.$refs.scroll.style.bottom = '60px'
     }

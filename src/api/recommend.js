@@ -44,3 +44,17 @@ export const getAlbumList = function () {
   let opt = Object.assign({}, ...opts, {name: 'getUCGI07098409694582686'})
   return jsonp(url, params, opt)
 }
+
+export const getAlbumSong = function (mid) {
+  const url = 'https://c.y.qq.com/v8/fcg-bin/fcg_v8_album_info_cp.fcg'
+  let params = Object.assign({}, commonUrlParams, {
+    albummid: mid,
+    jsonpCallback: 'albuminfoCallback',
+    loginUin: 0,
+    hostUin: 0,
+    notice: 0,
+    platform: 'yqq'
+  })
+  let opt = Object.assign({}, ...opts, {name: 'albuminfoCallback'})
+  return jsonp(url, params, opt)
+}
